@@ -13,10 +13,10 @@ import { Product } from '../product';
 export class EditPage {
 
   productForm: FormGroup;
-  _id:any='';
-  prod_name:string='';
-  prod_desc:string='';
-  prod_price:number=null;
+  _id: any = '';
+  prod_name: string = '';
+  prod_desc: string = '';
+  prod_price: number = null;
 
   constructor(public api: ApiService,
     public loadingController: LoadingController,
@@ -29,14 +29,14 @@ export class EditPage {
   ngOnInit() {
     this.getProduct(this.route.snapshot.params['id']);
     this.productForm = this.formBuilder.group({
-      'prod_name' : [null, Validators.required],
-      'prod_desc' : [null, Validators.required],
-      'prod_price' : [null, Validators.required]
+      'prod_name': [null, Validators.required],
+      'prod_desc': [null, Validators.required],
+      'prod_price': [null, Validators.required]
     });
   }
 
   async getProduct(id) {
-    if(this.route.snapshot.paramMap.get('id') == 'null') {
+    if (this.route.snapshot.paramMap.get('id') == 'null') {
       this.presentAlertConfirm('You are not choosing an item from the list');
     } else {
       const loading = await this.loadingController.create({
@@ -59,14 +59,15 @@ export class EditPage {
     }
   }
 
-  async onFormSubmit(form:NgForm) {
+  async onFormSubmit(form: NgForm) {
     await this.api.updateProduct(this._id, form)
       .subscribe(res => {
-          let id = res['_id'];
-          this.router.navigate([ '/tabs', { outlets: { details: id }} ]);
-        }, (err) => {
-          console.log(err);
-        }
+        let id = res['_id'];
+        // this.router.navigate([ '/tabs', { outlets: { details: id }} ]);
+        this.router.navigate(['/tabs', { outlets: { home: 'home' } }]);
+      }, (err) => {
+        console.log(err);
+      }
       );
   }
 

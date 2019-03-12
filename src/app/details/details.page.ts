@@ -20,6 +20,7 @@ export class DetailsPage implements OnInit {
     public router: Router) {}
 
   ngOnInit() {
+    this.product = { _id: null, prod_name: '', prod_desc: '', prod_price: null, updated_at: null };
     this.getProduct();
   }
 
@@ -33,7 +34,7 @@ export class DetailsPage implements OnInit {
       await loading.present();
       await this.api.getProduct(this.route.snapshot.paramMap.get('id'))
         .subscribe(res => {
-          console.log(res);
+          console.log("Recargando", res);
           this.product = res;
           loading.dismiss();
         }, err => {

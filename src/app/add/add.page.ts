@@ -43,7 +43,8 @@ export class AddPage {
           let id = res['_id'];
           loading.dismiss();
           console.log(this.router);
-          this.router.navigate([ { outlets: { details: id } } ], { relativeTo: this.route.parent });
+          // this.router.navigate([ { outlets: { details: id } } ], { relativeTo: this.route.parent });
+        this.router.navigate([ '/tabs', { outlets: { home: 'home' } } ]);
         }, (err) => {
           console.log(err);
           loading.dismiss();
